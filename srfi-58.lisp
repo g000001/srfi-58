@@ -124,8 +124,9 @@
     (iter dims) ))
 
 (defun list->uniform-array (rank dims type list)
-  (let ((rank (or rank (car dims))))
-    (srfi-63:list->array rank (funcall type) list)))
+  (let ((rank (or rank (let ((dim (length dims)))
+                         (if (zerop dim) 1 dim) ) )))
+    (srfi-63:list->array rank (funcall type) list) ))
 
 (defun read..sharp (c port read)
   (let ((rank read))
