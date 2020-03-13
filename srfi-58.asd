@@ -2,7 +2,14 @@
 
 (cl:in-package :asdf)
 
+
 (defsystem :srfi-58
+  :version "20200314"
+  :description ""
+  :long-description "
+https://srfi.schemers.org/srfi-58"
+  :author "Aubrey Jaffer"
+  :maintainer "CHIBA Masaomi"
   :serial t
   :depends-on (:fiveam
                :srfi-63
@@ -12,11 +19,28 @@
                (:file "readtable")
                (:file "test")))
 
+
+(defmethod perform :after ((o load-op) (c (eql (find-system :srfi-58))))
+  (let ((name "https://github.com/g000001/srfi-58")
+        (nickname :srfi-58))
+    (if (and (find-package nickname)
+             (not (eq (find-package nickname)
+                      (find-package name))))
+        (warn "~A: A package with name ~A already exists." name nickname)
+        (rename-package name name `(,nickname)))))
+
+
 (defmethod perform ((o test-op) (c (eql (find-system :srfi-58))))
-  (load-system :srfi-58)
-  (or (flet ((_ (pkg sym)
-               (intern (symbol-name sym) (find-package pkg))))
-         (let ((result (funcall (_ :fiveam :run) (_ :srfi-58.internal :srfi-58))))
-           (funcall (_ :fiveam :explain!) result)
-           (funcall (_ :fiveam :results-status) result)))
-      (error "test-op failed") ))
+  (let ((*package*
+         (find-package
+          "https://github.com/g000001/srfi-58")))
+    (eval
+     (read-from-string
+      "
+      (or (let ((result (run 'srfi-58)))
+            (explain! result)
+            (results-status result))
+          (error \"test-op failed\") )"))))
+
+
+;;; *EOF*

@@ -1,4 +1,5 @@
-* SRFI 58: Array Notation
+# SRFI 58 for CL: Array Notation
+
 - Copyright (C) Aubrey Jaffer (2004, 2005). All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining

@@ -1,11 +1,19 @@
 ;;;; package.lisp
 
-(cl:in-package :cl-user)
+(cl:in-package cl-user)
 
-(defpackage :srfi-58
-  (:use)
-  (:export))
 
-(defpackage :srfi-58.internal
-  (:use :srfi-58 :cl :named-readtables :fiveam))
+(defpackage "https://github.com/g000001/srfi-58"
+  (:use
+   cl
+   named-readtables
+   fiveam
+   "https://github.com/g000001/srfi-63")
+  (:shadowing-import-from
+   "https://github.com/g000001/srfi-63"
+   array-rank
+   array-dimensions
+   make-array ))
 
+
+;;; *EOF*
