@@ -5,8 +5,8 @@
 
 (defsystem :srfi-58
   :version "20200314"
-  :description ""
-  :long-description "
+  :description "SRFI 58 for CL: Array Notation"
+  :long-description "SRFI 58 for CL: Array Notation
 https://srfi.schemers.org/srfi-58"
   :author "Aubrey Jaffer"
   :maintainer "CHIBA Masaomi"
